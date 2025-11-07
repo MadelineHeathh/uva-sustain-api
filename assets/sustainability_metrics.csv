@@ -1,0 +1,29 @@
+building,year,energy_consumption_kwh,water_consumption_gallons,waste_diverted_lbs,co2_emissions_tons,metric_type
+Alderman Library,2020,1250000,850000,45000,285.5,academic
+Alderman Library,2021,1180000,820000,48000,269.2,academic
+Alderman Library,2022,1150000,800000,52000,262.3,academic
+Clemons Library,2020,980000,650000,38000,223.4,academic
+Clemons Library,2021,950000,630000,40000,216.7,academic
+Clemons Library,2022,920000,610000,42000,209.8,academic
+Newcomb Hall,2020,2100000,1200000,65000,479.0,student_life
+Newcomb Hall,2021,2050000,1180000,68000,467.4,student_life
+Newcomb Hall,2022,2000000,1150000,70000,456.2,student_life
+Memorial Gymnasium,2020,1800000,950000,55000,410.4,athletic
+Memorial Gymnasium,2021,1750000,930000,58000,399.0,athletic
+Memorial Gymnasium,2022,1700000,900000,60000,387.8,athletic
+Rice Hall,2020,1650000,880000,50000,376.2,academic
+Rice Hall,2021,1620000,860000,52000,369.4,academic
+Rice Hall,2022,1600000,840000,54000,364.8,academic
+Thornton Hall,2020,1950000,1100000,62000,444.6,academic
+Thornton Hall,2021,1920000,1080000,64000,437.8,academic
+Thornton Hall,2022,1900000,1050000,66000,433.4,academic
+Student Health Center,2020,1400000,750000,42000,319.2,healthcare
+Student Health Center,2021,1380000,740000,44000,314.8,healthcare
+Student Health Center,2022,1350000,720000,46000,308.1,healthcare
+Rotunda,2020,850000,500000,28000,194.0,historic
+Rotunda,2021,830000,490000,29000,189.4,historic
+Rotunda,2022,820000,480000,30000,187.0,historic
+Carr's Hill,2020,650000,400000,22000,148.3,administrative
+Carr's Hill,2021,640000,390000,23000,145.9,administrative
+Carr's Hill,2022,630000,380000,24000,143.5,administrative
+

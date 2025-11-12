@@ -11,6 +11,10 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 import pandas as pd
 from pathlib import Path
+from dotenv import load_dotenv
+
+# Load environment variables from .flaskenv
+load_dotenv()
 
 # Configure logging
 logging.basicConfig(
@@ -24,7 +28,8 @@ CORS(app)  # Enable CORS for frontend integration
 
 # Configuration
 DATA_FILE = os.getenv('DATA_FILE', 'assets/sustainability_metrics.csv')
-PORT = int(os.getenv('PORT', 8080))
+# Azure App Service uses WEBSITES_PORT, fallback to PORT or default 8080
+PORT = int(os.getenv('WEBSITES_PORT', os.getenv('PORT', 8080)))
 HOST = os.getenv('HOST', '0.0.0.0')
 
 # Global variable to store loaded data
@@ -237,8 +242,20 @@ def list_buildings():
         }), 500
 
 
+# Load data when module is imported (for flask run)
+@app.before_request
+def ensure_data_loaded():
+    """Ensure data is loaded before handling requests."""
+    global metrics_data
+    if metrics_data is None:
+        logger.info("Loading data on first request...")
+        load_data()
+        if metrics_data is None:
+            logger.warning("Data not loaded. API will return errors for data endpoints.")
+
+
 if __name__ == '__main__':
-    # Load data on startup
+    # Load data on startup (for python src/app.py)
     logger.info("Starting UVA Sustainability Metrics API...")
     load_data()
     

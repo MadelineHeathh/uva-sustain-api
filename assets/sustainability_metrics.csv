@@ -1,29 +1,29 @@
 building,year,energy_consumption_kwh,water_consumption_gallons,waste_diverted_lbs,co2_emissions_tons,metric_type
-Alderman Library,2020,1250000,850000,45000,285.5,academic
-Alderman Library,2021,1180000,820000,48000,269.2,academic
-Alderman Library,2022,1150000,800000,52000,262.3,academic
-Clemons Library,2020,980000,650000,38000,223.4,academic
-Clemons Library,2021,950000,630000,40000,216.7,academic
-Clemons Library,2022,920000,610000,42000,209.8,academic
-Newcomb Hall,2020,2100000,1200000,65000,479.0,student_life
-Newcomb Hall,2021,2050000,1180000,68000,467.4,student_life
-Newcomb Hall,2022,2000000,1150000,70000,456.2,student_life
-Memorial Gymnasium,2020,1800000,950000,55000,410.4,athletic
-Memorial Gymnasium,2021,1750000,930000,58000,399.0,athletic
-Memorial Gymnasium,2022,1700000,900000,60000,387.8,athletic
-Rice Hall,2020,1650000,880000,50000,376.2,academic
-Rice Hall,2021,1620000,860000,52000,369.4,academic
-Rice Hall,2022,1600000,840000,54000,364.8,academic
-Thornton Hall,2020,1950000,1100000,62000,444.6,academic
-Thornton Hall,2021,1920000,1080000,64000,437.8,academic
-Thornton Hall,2022,1900000,1050000,66000,433.4,academic
-Student Health Center,2020,1400000,750000,42000,319.2,healthcare
-Student Health Center,2021,1380000,740000,44000,314.8,healthcare
-Student Health Center,2022,1350000,720000,46000,308.1,healthcare
-Rotunda,2020,850000,500000,28000,194.0,historic
-Rotunda,2021,830000,490000,29000,189.4,historic
-Rotunda,2022,820000,480000,30000,187.0,historic
-Carr's Hill,2020,650000,400000,22000,148.3,administrative
-Carr's Hill,2021,640000,390000,23000,145.9,administrative
-Carr's Hill,2022,630000,380000,24000,143.5,administrative
-
+Alderman Library,2024,141084,70542,4702,56.4,academic
+Alderman Library,2025,1456704,728352,48556,582.7,academic
+Aquatic & Fitness Center,2024,590743,295371,19691,236.3,athletic
+Aquatic & Fitness Center,2025,7228474,3614237,240949,2891.4,athletic
+Clark Hall,2024,451739,225869,15057,180.7,academic
+Clark Hall,2025,5907427,2953713,196914,2363.0,academic
+Clemons Library,2024,142901,71450,4763,57.2,academic
+Clemons Library,2025,2010580,1005290,67019,804.2,academic
+John Paul Jones Arena,2024,646807,323403,21560,258.7,student_life
+John Paul Jones Arena,2025,7554690,3777345,251823,3021.9,student_life
+New Cabell Hall,2024,222499,111249,7416,89.0,academic
+New Cabell Hall,2025,2933078,1466539,97769,1173.2,academic
+Newcomb Hall,2024,402005,201002,13400,160.8,student_life
+Newcomb Hall,2025,6564813,3282406,218827,2625.9,student_life
+O-Hill,2024,433129,216564,14437,173.3,student_life
+O-Hill,2025,5976035,2988017,199201,2390.4,student_life
+Old Cabell Hall,2024,90324,45162,3010,36.1,student_life
+Old Cabell Hall,2025,810424,405212,27014,324.2,student_life
+Rice Hall,2024,573539,286769,19117,229.4,academic
+Rice Hall,2025,5465212,2732606,182173,2186.1,academic
+Rotunda,2024,111982,55991,3732,44.8,academic
+Rotunda,2025,1202875,601437,40095,481.2,academic
+School of Data Science,2024,573539,286769,19117,229.4,academic
+School of Data Science,2025,5462369,2731184,182078,2184.9,academic
+Scott Stadium,2024,496784,248392,16559,198.7,academic
+Scott Stadium,2025,3753267,1876633,125108,1501.3,academic
+University Hospital,2024,14620813,7310406,487360,5848.3,healthcare
+University Hospital,2025,162704574,81352287,5423485,65081.8,healthcare

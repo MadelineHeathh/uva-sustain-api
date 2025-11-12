@@ -7,7 +7,7 @@ or campus-wide aggregations.
 
 import os
 import logging
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 from flask_cors import CORS
 import pandas as pd
 from pathlib import Path
@@ -23,7 +23,7 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='../templates', static_folder='../static')
 CORS(app)  # Enable CORS for frontend integration
 
 # Configuration
@@ -54,6 +54,31 @@ def load_data():
     except Exception as e:
         logger.error(f"Error loading data: {str(e)}")
         return None
+
+
+@app.route('/', methods=['GET'])
+def root():
+    """Root endpoint - serve web interface."""
+    return render_template('index.html')
+
+
+@app.route('/api', methods=['GET'])
+def api_info():
+    """API information endpoint."""
+    return jsonify({
+        'service': 'UVA Sustainability Metrics API',
+        'version': '1.0',
+        'status': 'running',
+        'endpoints': {
+            'health': '/health',
+            'buildings': '/api/v1/buildings',
+            'metrics': '/api/v1/metrics',
+            'building_metrics': '/api/v1/metrics/<building_name>',
+            'campus_wide': '/api/v1/metrics/campus-wide',
+            'monthly_data': '/api/v1/metrics/<building_name>/monthly'
+        },
+        'documentation': 'See README.md for API documentation'
+    }), 200
 
 
 @app.route('/health', methods=['GET'])
@@ -237,6 +262,72 @@ def list_buildings():
     
     except Exception as e:
         logger.error(f"Error processing request: {str(e)}")
+        return jsonify({
+            'error': f'Error processing request: {str(e)}'
+        }), 500
+
+
+@app.route('/api/v1/metrics/<building_name>/monthly', methods=['GET'])
+def get_building_monthly_data(building_name):
+    """
+    Get monthly energy data for a specific building.
+    Uses the monthly data from uva_energy_data_template.csv if available.
+    """
+    try:
+        # Try to load monthly data
+        monthly_data_path = Path(__file__).parent.parent / 'assets' / 'uva_energy_data_template.csv'
+        
+        if not monthly_data_path.exists():
+            return jsonify({
+                'error': 'Monthly data not available'
+            }), 404
+        
+        monthly_df = pd.read_csv(monthly_data_path)
+        
+        # Filter by building
+        building_data = monthly_df[
+            monthly_df['building'].str.contains(building_name, case=False, na=False)
+        ]
+        
+        if building_data.empty:
+            return jsonify({
+                'error': f'Building "{building_name}" not found in monthly data'
+            }), 404
+        
+        # Convert MMBtu to kWh and prepare monthly data
+        MMBTU_TO_KWH = 293.071
+        monthly_data = []
+        
+        for _, row in building_data.iterrows():
+            if pd.notna(row.get('energy_MMBtu')) and str(row.get('energy_MMBtu')).strip() != '':
+                try:
+                    energy_mmbtu = float(row.get('energy_MMBtu'))
+                    energy_kwh = int(energy_mmbtu * MMBTU_TO_KWH)
+                    
+                    monthly_data.append({
+                        'month': row.get('month', ''),
+                        'year': int(row.get('year', 0)),
+                        'energy_kwh': energy_kwh,
+                        'energy_MMBtu': round(energy_mmbtu, 1),
+                        'gross_square_feet': row.get('gross_square_feet', ''),
+                        'occupancy': row.get('occupancy', ''),
+                        'primary_use': row.get('primary_use', '')
+                    })
+                except (ValueError, TypeError):
+                    continue
+        
+        # Sort by year and month
+        month_order = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        monthly_data.sort(key=lambda x: (x['year'], month_order.index(x['month']) if x['month'] in month_order else 99))
+        
+        return jsonify({
+            'building': building_name,
+            'count': len(monthly_data),
+            'data': monthly_data
+        }), 200
+    
+    except Exception as e:
+        logger.error(f"Error processing monthly data request: {str(e)}")
         return jsonify({
             'error': f'Error processing request: {str(e)}'
         }), 500

@@ -23,7 +23,6 @@ COPY static/ ./static/
 # Set environment variables
 ENV PYTHONUNBUFFERED=1
 ENV FLASK_APP=src/app.py
-ENV DATA_FILE=assets/sustainability_metrics.csv
 ENV PORT=8080
 ENV HOST=0.0.0.0
 

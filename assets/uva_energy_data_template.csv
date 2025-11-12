@@ -1,14 +1,181 @@
-building,year,energy_kw,electricity_kw,heating_kw,cooling_kw,water_gallons,gross_square_feet,occupancy,primary_use
-Rotunda,2020,,,,,,
-Rotunda,2021,,,,,,
-Rotunda,2022,,,,,,
-Alderman Library,2020,,,,,,
-Alderman Library,2021,,,,,,
-Alderman Library,2022,,,,,,
-Clemons Library,2020,,,,,,
-Clemons Library,2021,,,,,,
-Clemons Library,2022,,,,,,
-Newcomb Hall,2020,,,,,,
-Newcomb Hall,2021,,,,,,
-Newcomb Hall,2022,,,,,,
-
+building,month,year,energy_MMBtu,gross_square_feet,occupancy,primary_use
+Rotunda,Dec,2024,382.1,763,166,academic
+Rotunda,Jan,2025,464.5
+Rotunda,Feb,2025,359.5
+Rotunda,Mar,2025,242.0
+Rotunda,Apr,2025,267.5
+Rotunda,May,2025,313.0
+Rotunda,June,2025,499.4
+Rotunda,July,2025,583.8
+Rotunda,Aug,2025,472.7
+Rotunda,Sep,2025,429.0
+Rotunda,Oct,2025,268.6
+Rotunda,Nov,2025,204.4
+Alderman Library,Dec,2024,481.4,230000,1400,academic
+Alderman Library,Jan,2025,483.1
+Alderman Library,Feb,2025,511.0
+Alderman Library,Mar,2025,473.0
+Alderman Library,Apr,2025,498.6
+Alderman Library,May,2025,400.8
+Alderman Library,June,2025,365.2
+Alderman Library,July,2025,368.2
+Alderman Library,Aug,2025,407.4
+Alderman Library,Sep,2025,504.2
+Alderman Library,Oct,2025,485.4
+Alderman Library,Nov,2025,473.6
+Clemons Library,Dec,2024,487.6,20000,...,academic
+Clemons Library,Jan,2025,520.2
+Clemons Library,Feb,2025,514.1
+Clemons Library,Mar,2025,525.6
+Clemons Library,Apr,2025,654.8
+Clemons Library,May,2025,590.1
+Clemons Library,June,2025,762.1
+Clemons Library,July,2025,931.3
+Clemons Library,Aug,2025,732.3
+Clemons Library,Sep,2025,711.2
+Clemons Library,Oct,2025,483.0
+Clemons Library,Nov,2025,435.7
+Newcomb Hall,Dec,2024,1371.7,201046,...,multi-use
+Newcomb Hall,Jan,2025,1715.7
+Newcomb Hall,Feb,2025,1644.2
+Newcomb Hall,Mar,2025,1668.1
+Newcomb Hall,Apr,2025,1907.4
+Newcomb Hall,May,2025,1805.0
+Newcomb Hall,June,2025,2479.7
+Newcomb Hall,July,2025,2918.2
+Newcomb Hall,Aug,2025,2452.9
+Newcomb Hall,Sep,2025,2418.1
+Newcomb Hall,Oct,2025,1757.5
+Newcomb Hall,Nov,2025,1633.3
+School of Data Science,Dec,2024,1957.0,61000,...,academic
+School of Data Science,Jan,2025,1817.7
+School of Data Science,Feb,2025,1818.5
+School of Data Science,Mar,2025,1828.2
+School of Data Science,Apr,2025,1810.4
+School of Data Science,May,2025,1678.3
+School of Data Science,June,2025,1871.9
+School of Data Science,July,2025,2074.2
+School of Data Science,Aug,2025,1595.9
+School of Data Science,Sep,2025,1521.5
+School of Data Science,Oct,2025,1334.7
+School of Data Science,Nov,2025,1287.1
+Aquatic & Fitness Center,Dec,2024,2015.7,98000,...,fitness
+Aquatic & Fitness Center,Jan,2025,2023.7
+Aquatic & Fitness Center,Feb,2025,1978.7
+Aquatic & Fitness Center,Mar,2025,1842.4
+Aquatic & Fitness Center,Apr,2025,1976.4
+Aquatic & Fitness Center,May,2025,2243.1
+Aquatic & Fitness Center,June,2025,2809.9
+Aquatic & Fitness Center,July,2025,3134.0
+Aquatic & Fitness Center,Aug,2025,2519.0
+Aquatic & Fitness Center,Sep,2025,2336.1
+Aquatic & Fitness Center,Oct,2025,1995.0
+Aquatic & Fitness Center,Nov,2025,1806.3
+Clark Hall,Dec,2024,1541.4,181000,...,academic
+Clark Hall,Jan,2025,1924.8
+Clark Hall,Feb,2025,1541.7
+Clark Hall,Mar,2025,1198.4
+Clark Hall,Apr,2025,1521.5
+Clark Hall,May,2025,1607.3
+Clark Hall,June,2025,2789.3
+Clark Hall,July,2025,3273.8
+Clark Hall,Aug,2025,2302.6
+Clark Hall,Sep,2025,1877.6
+Clark Hall,Oct,2025,1067.3
+Clark Hall,Nov,2025,1052.7
+John Paul Jones Arena,Dec,2024,2207.0,370024,15000,multi-purpose
+John Paul Jones Arena,Jan,2025,2640.0
+John Paul Jones Arena,Feb,2025,2349.9
+John Paul Jones Arena,Mar,2025,1735.0
+John Paul Jones Arena,Apr,2025,2177.1
+John Paul Jones Arena,May,2025,2031.8
+John Paul Jones Arena,June,2025,2824.0
+John Paul Jones Arena,July,2025,3063.1
+John Paul Jones Arena,Aug,2025,2659.0
+John Paul Jones Arena,Sep,2025,2530.6
+John Paul Jones Arena,Oct,2025,1857.7
+John Paul Jones Arena,Nov,2025,1909.5
+New Cabell Hall,Dec,2024,759.2,160000,...,academic
+New Cabell Hall,Jan,2025,935.9
+New Cabell Hall,Feb,2025,826.6
+New Cabell Hall,Mar,2025,636.7
+New Cabell Hall,Apr,2025,749.9
+New Cabell Hall,May,2025,798.3
+New Cabell Hall,June,2025,1279.9
+New Cabell Hall,July,2025,1458.6
+New Cabell Hall,Aug,2025,1108.0
+New Cabell Hall,Sep,2025,1059.9
+New Cabell Hall,Oct,2025,616.1
+New Cabell Hall,Nov,2025,538.2
+Old Cabell Hall,Dec,2024,308.2,66506,...,multi-purpose
+Old Cabell Hall,Jan,2025,368.6
+Old Cabell Hall,Feb,2025,308.9
+Old Cabell Hall,Mar,2025,200.8
+Old Cabell Hall,Apr,2025,205.8
+Old Cabell Hall,May,2025,217.7
+Old Cabell Hall,June,2025,269.3
+Old Cabell Hall,July,2025,319.8
+Old Cabell Hall,Aug,2025,261.1
+Old Cabell Hall,Sep,2025,255.1
+Old Cabell Hall,Oct,2025,170.0
+Old Cabell Hall,Nov,2025,188.2
+Rice Hall,Dec,2024,1957.0,100000,...,academic
+Rice Hall,Jan,2025,1817.7
+Rice Hall,Feb,2025,1818.5
+Rice Hall,Mar,2025,1828.2
+Rice Hall,Apr,2025,1810.4
+Rice Hall,May,2025,1678.3
+Rice Hall,June,2025,1871.9
+Rice Hall,July,2025,2074.2
+Rice Hall,Aug,2025,1595.9
+Rice Hall,Sep,2025,1521.5
+Rice Hall,Oct,2025,1334.7
+Rice Hall,Nov,2025,1296.8
+Scott Stadium,Dec,2024,1695.1
+Scott Stadium,Jan,2025,1776.8
+Scott Stadium,Feb,2025,1494.9
+Scott Stadium,Mar,2025,917.1
+Scott Stadium,Apr,2025,860.7
+Scott Stadium,May,2025,777.6
+Scott Stadium,June,2025,1091.1
+Scott Stadium,July,2025,1362.5
+Scott Stadium,Aug,2025,1101.9
+Scott Stadium,Sep,2025,1162.3
+Scott Stadium,Oct,2025,1004.8
+Scott Stadium,Nov,2025,1257.0
+University Hospital,Dec,2024,49888.3,5000000,...,medical
+University Hospital,Jan,2025,54753.8
+University Hospital,Feb,2025,46995.6
+University Hospital,Mar,2025,45688.3
+University Hospital,Apr,2025,45135.9
+University Hospital,May,2025,46341.0
+University Hospital,June,2025,58822.1
+University Hospital,July,2025,64089.0
+University Hospital,Aug,2025,55543.2
+University Hospital,Sep,2025,51890.6
+University Hospital,Oct,2025,42569.3
+University Hospital,Nov,2025,43342.4
+O-Hill,Dec,2024,1477.9,62000,...,dining
+O-Hill,Jan,2025,1567.9
+O-Hill,Feb,2025,1934.8
+O-Hill,Mar,2025,1626.4
+O-Hill,Apr,2025,1761.0
+O-Hill,May,2025,1466.2
+O-Hill,June,2025,2180.1
+O-Hill,July,2025,2433.9
+O-Hill,Aug,2025,2007.0
+O-Hill,Sep,2025,2087.8
+O-Hill,Oct,2025,1678.1
+O-Hill,Nov,2025,1647.9
+Newcomb Hall,Dec,2024,1371.7,201000,...,multi-purpose
+Newcomb Hall,Jan,2025,1715.7
+Newcomb Hall,Feb,2025,1644.2
+Newcomb Hall,Mar,2025,1668.1
+Newcomb Hall,Apr,2025,1907.4
+Newcomb Hall,May,2025,1805.0
+Newcomb Hall,June,2025,2479.7
+Newcomb Hall,July,2025,2918.2
+Newcomb Hall,Aug,2025,2452.9
+Newcomb Hall,Sep,2025,2418.1
+Newcomb Hall,Oct,2025,1757.5
+Newcomb Hall,Nov,2025,1648.3

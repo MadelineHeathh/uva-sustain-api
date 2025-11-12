@@ -50,6 +50,10 @@
         .content {
             padding: 40px;
         }
+        
+        body {
+            overflow-y: auto;
+        }
 
         .building-selector {
             margin-bottom: 40px;
@@ -170,6 +174,12 @@
             border-radius: 10px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             margin-top: 30px;
+            min-height: 500px;
+            scroll-margin-top: 20px;
+        }
+        
+        .chart-container canvas {
+            max-height: 500px !important;
         }
 
         .chart-container h2 {
@@ -260,11 +270,21 @@
                         <h3>CO₂ Emissions</h3>
                         <div class="value" id="co2Value">-<span class="unit">tons</span></div>
                     </div>
+                    <div class="metric-card" id="efficiencyCard">
+                        <h3>Energy Efficiency</h3>
+                        <div class="value" id="efficiencyValue">-<span class="unit">%</span></div>
+                        <div id="efficiencyStatus" style="margin-top: 10px; font-size: 0.9em; font-weight: normal;"></div>
+                    </div>
                 </div>
 
-                <div class="chart-container">
-                    <h2>Monthly Energy Usage</h2>
-                    <canvas id="energyChart"></canvas>
+                <div class="chart-container" id="chartContainer">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <h2 style="margin: 0;">Monthly Energy Usage</h2>
+                        <button onclick="scrollToChart()" style="padding: 10px 20px; background: #E57200; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 0.9em;">
+                            📊 View Chart
+                        </button>
+                    </div>
+                    <canvas id="energyChart" style="max-height: 500px;"></canvas>
                 </div>
             </div>
 
@@ -328,16 +348,30 @@
                 // Display building info
                 document.getElementById('buildingName').textContent = buildingName;
                 
-                // Get building details from monthly data if available
-                if (monthlyData && monthlyData.data && monthlyData.data.length > 0) {
-                    const firstRecord = monthlyData.data[0];
-                    document.getElementById('squareFeet').textContent = firstRecord.gross_square_feet || '-';
-                    document.getElementById('occupancy').textContent = firstRecord.occupancy || '-';
-                    document.getElementById('primaryUse').textContent = firstRecord.primary_use || '-';
+                // Get building details from monthly data building_info
+                if (monthlyData && monthlyData.building_info) {
+                    const info = monthlyData.building_info;
+                    document.getElementById('squareFeet').textContent = info.gross_square_feet ? formatNumber(info.gross_square_feet) : '-';
+                    document.getElementById('occupancy').textContent = info.occupancy ? formatNumber(info.occupancy) : '-';
+                    document.getElementById('primaryUse').textContent = info.primary_use || '-';
                 } else {
-                    document.getElementById('squareFeet').textContent = '-';
-                    document.getElementById('occupancy').textContent = '-';
-                    document.getElementById('primaryUse').textContent = '-';
+                    // Try to get from first data record if building_info not available
+                    if (monthlyData && monthlyData.data && monthlyData.data.length > 0) {
+                        const firstRecord = monthlyData.data.find(d => d.gross_square_feet || d.occupancy);
+                        if (firstRecord) {
+                            document.getElementById('squareFeet').textContent = firstRecord.gross_square_feet ? formatNumber(firstRecord.gross_square_feet) : '-';
+                            document.getElementById('occupancy').textContent = firstRecord.occupancy ? formatNumber(firstRecord.occupancy) : '-';
+                            document.getElementById('primaryUse').textContent = firstRecord.primary_use || '-';
+                        } else {
+                            document.getElementById('squareFeet').textContent = '-';
+                            document.getElementById('occupancy').textContent = '-';
+                            document.getElementById('primaryUse').textContent = '-';
+                        }
+                    } else {
+                        document.getElementById('squareFeet').textContent = '-';
+                        document.getElementById('occupancy').textContent = '-';
+                        document.getElementById('primaryUse').textContent = '-';
+                    }
                 }
 
                 // Calculate totals from yearly data
@@ -356,14 +390,35 @@
                     document.getElementById('wasteValue').innerHTML = formatNumber(totals.waste) + '<span class="unit"> lbs</span>';
                     document.getElementById('co2Value').innerHTML = formatNumber(totals.co2, 1) + '<span class="unit"> tons</span>';
 
+                    // Always show chart container
+                    const chartContainer = document.querySelector('.chart-container');
+                    chartContainer.style.display = 'block';
+                    
+                    // Get building info for efficiency calculation
+                    let buildingInfo = monthlyData?.building_info || {};
+                    let squareFeet = buildingInfo.gross_square_feet;
+                    
                     // Create chart if monthly data available
                     if (monthlyData && monthlyData.data && monthlyData.data.length > 0) {
-                        createEnergyChart(monthlyData.data);
+                        createEnergyChart(monthlyData.data, buildingInfo);
                     } else {
-                        // Hide chart if no monthly data
-                        const chartContainer = document.querySelector('.chart-container');
-                        chartContainer.style.display = 'none';
+                        // Show message if no monthly data
+                        chartContainer.innerHTML = '<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;"><h2 style="margin: 0;">Monthly Energy Usage</h2><button onclick="scrollToChart()" style="padding: 10px 20px; background: #E57200; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 0.9em;">📊 View Chart</button></div><p class="no-data">Monthly data not available for this building.</p>';
                     }
+                    
+                    // Calculate and display energy efficiency comparison
+                    if (squareFeet) {
+                        calculateEfficiencyComparison(totals.energy, squareFeet, monthlyData?.data || []);
+                        document.getElementById('efficiencyCard').style.display = 'block';
+                    } else {
+                        // Hide efficiency card if no building info
+                        document.getElementById('efficiencyCard').style.display = 'none';
+                    }
+                    
+                    // Scroll to chart after loading
+                    setTimeout(() => {
+                        chartContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 500);
                 }
 
                 document.getElementById('loading').classList.add('hidden');
@@ -376,20 +431,103 @@
             }
         }
 
+        // Calculate energy efficiency comparison
+        function calculateEfficiencyComparison(totalEnergy, squareFeet, monthlyData) {
+            // ENERGY STAR benchmark: ~25-30 kWh/sqft/year for efficient buildings
+            // We'll use 27.5 kWh/sqft/year as the efficient standard
+            const EFFICIENT_KWH_PER_SQFT = 27.5;
+            const efficientYearlyEnergy = squareFeet * EFFICIENT_KWH_PER_SQFT;
+            const actualYearlyEnergy = totalEnergy;
+            
+            // Calculate actual energy intensity (kWh/sqft/year)
+            const actualIntensity = (actualYearlyEnergy / squareFeet);
+            
+            // Calculate efficiency percentage (how close to efficient standard)
+            // If building uses less than efficient standard, it's > 100%
+            const efficiencyRatio = (efficientYearlyEnergy / actualYearlyEnergy) * 100;
+            
+            // Calculate monthly efficient baseline
+            const monthlyEfficient = efficientYearlyEnergy / 12;
+            
+            // Update efficiency display
+            const efficiencyCard = document.getElementById('efficiencyCard');
+            if (efficiencyCard) {
+                const efficiencyValue = document.getElementById('efficiencyValue');
+                const efficiencyStatus = document.getElementById('efficiencyStatus');
+                
+                if (efficiencyRatio >= 100) {
+                    // Building is more efficient (uses less energy than standard)
+                    efficiencyValue.innerHTML = efficiencyRatio.toFixed(1) + '<span class="unit">%</span>';
+                    efficiencyStatus.textContent = `Above Standard (${actualIntensity.toFixed(1)} vs ${EFFICIENT_KWH_PER_SQFT} kWh/sqft/yr)`;
+                    efficiencyStatus.style.color = '#28a745';
+                } else {
+                    // Building is less efficient (uses more energy than standard)
+                    efficiencyValue.innerHTML = efficiencyRatio.toFixed(1) + '<span class="unit">%</span>';
+                    efficiencyStatus.textContent = `Below Standard (${actualIntensity.toFixed(1)} vs ${EFFICIENT_KWH_PER_SQFT} kWh/sqft/yr)`;
+                    efficiencyStatus.style.color = '#dc3545';
+                }
+            }
+            
+            return monthlyEfficient;
+        }
+
         // Create energy usage chart
-        function createEnergyChart(monthlyData) {
+        function createEnergyChart(monthlyData, buildingInfo) {
             const chartContainer = document.querySelector('.chart-container');
             chartContainer.style.display = 'block';
+            
+            // Always reset chart container HTML to ensure canvas exists
+            chartContainer.innerHTML = '<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;"><h2 style="margin: 0;">Monthly Energy Usage</h2><button onclick="scrollToChart()" style="padding: 10px 20px; background: #E57200; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 0.9em;">📊 View Chart</button></div><canvas id="energyChart" style="max-height: 500px;"></canvas>';
 
             const ctx = document.getElementById('energyChart').getContext('2d');
 
             // Prepare data
             const labels = monthlyData.map(d => `${d.month} ${d.year}`);
             const energyData = monthlyData.map(d => d.energy_kwh);
+            
+            // Calculate efficient building baseline if square footage available
+            let efficientBaseline = null;
+            if (buildingInfo && buildingInfo.gross_square_feet) {
+                const EFFICIENT_KWH_PER_SQFT = 27.5;
+                const efficientYearly = buildingInfo.gross_square_feet * EFFICIENT_KWH_PER_SQFT;
+                efficientBaseline = efficientYearly / 12; // Monthly average
+            }
 
             // Destroy existing chart if it exists
             if (energyChart) {
                 energyChart.destroy();
+            }
+
+            // Prepare datasets
+            const datasets = [{
+                label: 'Actual Energy Consumption (kWh)',
+                data: energyData,
+                borderColor: '#E57200',
+                backgroundColor: 'rgba(229, 114, 0, 0.1)',
+                borderWidth: 3,
+                fill: true,
+                tension: 0.4,
+                pointRadius: 5,
+                pointHoverRadius: 7,
+                pointBackgroundColor: '#E57200',
+                pointBorderColor: '#fff',
+                pointBorderWidth: 2
+            }];
+            
+            // Add efficient building baseline if available
+            if (efficientBaseline) {
+                datasets.push({
+                    label: 'Energy-Efficient Building Standard (27.5 kWh/sqft/yr)',
+                    data: new Array(labels.length).fill(efficientBaseline),
+                    borderColor: '#28a745',
+                    backgroundColor: 'rgba(40, 167, 69, 0.1)',
+                    borderWidth: 3,
+                    borderDash: [8, 4],
+                    fill: false,
+                    pointRadius: 0,
+                    pointHoverRadius: 0,
+                    tension: 0
+                });
             }
 
             // Create new chart
@@ -397,24 +535,20 @@
                 type: 'line',
                 data: {
                     labels: labels,
-                    datasets: [{
-                        label: 'Energy Consumption (kWh)',
-                        data: energyData,
-                        borderColor: '#E57200',
-                        backgroundColor: 'rgba(229, 114, 0, 0.1)',
-                        borderWidth: 3,
-                        fill: true,
-                        tension: 0.4,
-                        pointRadius: 5,
-                        pointHoverRadius: 7,
-                        pointBackgroundColor: '#E57200',
-                        pointBorderColor: '#fff',
-                        pointBorderWidth: 2
-                    }]
+                    datasets: datasets
                 },
                 options: {
                     responsive: true,
-                    maintainAspectRatio: true,
+                    maintainAspectRatio: false,
+                    aspectRatio: 2.5,
+                    layout: {
+                        padding: {
+                            top: 10,
+                            bottom: 10,
+                            left: 10,
+                            right: 10
+                        }
+                    },
                     plugins: {
                         legend: {
                             display: true,
@@ -489,6 +623,14 @@
             const errorDiv = document.getElementById('error');
             errorDiv.textContent = message;
             errorDiv.classList.remove('hidden');
+        }
+
+        // Scroll to chart
+        function scrollToChart() {
+            const chartContainer = document.getElementById('chartContainer');
+            if (chartContainer) {
+                chartContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
         }
 
         // Initialize on page load

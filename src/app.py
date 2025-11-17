@@ -33,6 +33,34 @@ HOST = os.getenv('HOST', '0.0.0.0')
 
 # All data is now loaded from uva_energy_data_template.csv on-demand
 
+# Optional in-memory cache for tests or callers that want to preload data
+MONTHLY_DF = None
+
+def load_data():
+    """
+    Load the monthly data CSV into memory and return True on success.
+    Tests call this function to ensure data is available before exercising endpoints.
+    """
+    global MONTHLY_DF
+    try:
+        monthly_data_path = Path(__file__).parent.parent / 'assets' / 'uva_energy_data_template.csv'
+
+        # Fallback to DATA_FILE env var (matches .env.example) if the template file is not present
+        if not monthly_data_path.exists():
+            alt = os.getenv('DATA_FILE', 'assets/sustainability_metrics.csv')
+            monthly_data_path = Path(__file__).parent.parent / alt
+
+        if not monthly_data_path.exists():
+            logger.warning(f"Data file not found: {monthly_data_path}")
+            return False
+
+        MONTHLY_DF = pd.read_csv(monthly_data_path)
+        logger.info(f"Loaded monthly data from {monthly_data_path}")
+        return True
+    except Exception as e:
+        logger.error(f"Failed to load data: {e}")
+        return False
+
 
 @app.route('/', methods=['GET'])
 def root():

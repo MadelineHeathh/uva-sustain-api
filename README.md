@@ -466,7 +466,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Credits
 
-- **Dataset**: Sample sustainability metrics data (synthetic, for demonstration purposes)
+- **Dataset**: UVA Sustainability Metrics Data: https://energytracker.fm.virginia.edu/#building
 - **Framework**: Flask (https://flask.palletsprojects.com/)
 - **Data Processing**: Pandas (https://pandas.pydata.org/)
 - **Containerization**: Docker (https://www.docker.com/)

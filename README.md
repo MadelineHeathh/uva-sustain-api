@@ -278,6 +278,22 @@ Docker provides:
 
 ### Screenshots/Sample Outputs
 
+#### Dashboard Screenshots
+
+**1. Building Selection Dashboard**
+![Building Selection Dashboard](assets/images/building-selection-dashboard.png)
+*The UVA Sustainability Metrics dashboard with building selector dropdown*
+
+**2. Building Details Dashboard**
+![Building Details Dashboard](assets/images/building-details-dashboard.png)
+*Detailed view showing sustainability metrics for School of Data Science including energy consumption, water consumption, waste diverted, CO2 emissions, and energy efficiency*
+
+**3. Energy Efficiency Dashboard**
+![Energy Efficiency Dashboard](assets/images/energy-efficiency-dashboard.png)
+*Energy efficiency metrics showing monthly energy usage comparison between actual consumption and the energy-efficient building standard*
+
+#### API Response Examples
+
 **Health Check:**
 ```json
 {

@@ -445,18 +445,6 @@ pytest tests/test_api.py -v
 
 **GitHub Repo:** [https://github.com/MadelineHeathh/uva-sustain-api]
 
-### Azure Deployment
-
-This application is configured for Azure deployment. Choose your preferred method:
-
-**Option 1: Azure Portal (Web UI) - Recommended for beginners**
-- See [AZURE_PORTAL_DEPLOYMENT.md](AZURE_PORTAL_DEPLOYMENT.md) for step-by-step instructions
-- No command line required - everything through the web interface
-
-**Option 2: Azure CLI (Command Line)**
-- See [AZURE_DEPLOYMENT.md](AZURE_DEPLOYMENT.md) for detailed instructions
-- Quick deploy: `./azure-deploy.sh` (requires Azure CLI)
-
 ---
 
 ## Project Structure

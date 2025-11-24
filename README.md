@@ -65,13 +65,13 @@ This project integrates multiple concepts from the course modules:
 ### Data/Models/Services
 
 **Data Source:** 
-- `assets/sustainability_metrics.csv` - Sample sustainability metrics dataset
-- Contains 24 records covering 10 UVA buildings over 3 years (2020-2022)
-- Metrics include: energy consumption (kWh), water consumption (gallons), waste diverted (lbs), CO2 emissions (tons)
-- Building types: academic, student_life, athletic, healthcare, historic, administrative
+- `uva_energy_data_template.csv` - UVA sustainability metrics manually inserted from the website https://energytracker.fm.virginia.edu/#building
+- Contains 15 buildings including their energy usage in MMBtu (converted to kWh in the app) from December 2024-November 2025.
+- Metrics include: energy consumption (kWh), water consumption (gallons), waste diverted (lbs), CO2 emissions (tons). Water consumption, waste diverted, and CO2 emissions are derived from energy usage data. Included is also gross square footage of the building, occupancy, and the buildings' primary use.
+- Building types: academic, multi-purpose/use, dining, medical, fitness
 
 **Data Format:**
-- CSV with columns: building, year, energy_consumption_kwh, water_consumption_gallons, waste_diverted_lbs, co2_emissions_tons, metric_type
+- CSV with columns: building, month, year, energy_consumption_MMBtu, gross_square_feet, occupancy, primary_use
 - License: MIT (included in repository)
 
 **Services:**
@@ -306,17 +306,23 @@ Docker provides:
 **List Buildings:**
 ```json
 {
-  "count": 10,
+  "count": 15,
   "buildings": [
     "Alderman Library",
-    "Carr's Hill",
+    "Rotunda",
     "Clemons Library",
-    "Memorial Gymnasium",
     "Newcomb Hall",
     "Rice Hall",
-    "Rotunda",
+    "School of Data Science",
     "Student Health Center",
-    "Thornton Hall"
+    "Aquatic & Fitness Center",
+    "Clark Hall",
+    "John Paul Jones Arena",
+    "New Cabell Hall",
+    "Old Cabell Hall",
+    "Scott Stadium",
+    "University Hospital",
+    "O-Hill",
   ]
 }
 ```
@@ -437,9 +443,7 @@ pytest tests/test_api.py -v
 
 ## 7) Links
 
-**GitHub Repo:** [INSERT-REPO-URL]
-
-**Public Cloud App (optional):** [INSERT-CLOUD-URL]
+**GitHub Repo:** [https://github.com/MadelineHeathh/uva-sustain-api]
 
 ### Azure Deployment
 
@@ -479,7 +483,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Credits
 
-- **Dataset**: Sample sustainability metrics data (synthetic, for demonstration purposes)
+- **Dataset**: UVA Sustainability Metrics Data: https://energytracker.fm.virginia.edu/#building
 - **Framework**: Flask (https://flask.palletsprojects.com/)
 - **Data Processing**: Pandas (https://pandas.pydata.org/)
 - **Containerization**: Docker (https://www.docker.com/)

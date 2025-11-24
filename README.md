@@ -67,8 +67,9 @@ This project integrates multiple concepts from the course modules:
 **Data Source:** 
 - `uva_energy_data_template.csv` - UVA sustainability metrics manually inserted from the website https://energytracker.fm.virginia.edu/#building
 - Contains 15 buildings including their energy usage in MMBtu (converted to kWh in the app) from December 2024-November 2025.
-- Metrics include: energy consumption (kWh), water consumption (gallons), waste diverted (lbs), CO2 emissions (tons). Water consumption, waste diverted, and CO2 emissions are derived from energy usage data. Included is also gross square footage of the building, occupancy, and the buildings primary use.
+- Metrics include: energy consumption (kWh), water consumption (gallons), waste diverted (lbs), CO2 emissions (tons). Water consumption, waste diverted, and CO2 emissions are derived from energy usage data. Included is also gross square footage of the building, occupancy, and the buildings' primary use.
 - Building types: academic, multi-purpose/use, dining, medical, fitness
+
 **Data Format:**
 - CSV with columns: building, month, year, energy_consumption_MMBtu, gross_square_feet, occupancy, primary_use
 - License: MIT (included in repository)
